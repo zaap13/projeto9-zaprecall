@@ -1,8 +1,16 @@
-
+import Footer from "./Footer";
+import Header from "./Header";
+import Main from "./Main";
+import GlobalStyle from "./globalStyles";
 
 function App() {
   return (
-    <h1>Hello World</h1>
+    <>
+      <GlobalStyle />
+      <Header />
+      <Main />
+      <Footer />
+    </>
   );
 }
 
