@@ -2,21 +2,54 @@ import { useState } from "react";
 import styled from "styled-components";
 import setinha from "./img/seta_virar.png";
 import play from "./img/seta_play.png";
+import zap from "./img/icone_certo.png";
+import almost from "./img/icone_quase.png";
+import error from "./img/icone_erro.png";
 
-export default function FlashCard({ number, pergunta, resposta }) {
+export default function FlashCard({ number, pergunta, resposta, setCounter }) {
   const [cardOpen, setCardOpen] = useState(false);
   const [cardFlip, setCardFlip] = useState(false);
+  const [done, setDone] = useState("");
+  const [icon, setIcon] = useState(play);
+
   return (
     <>
-      <Card open={cardOpen}>
+      <Card open={cardOpen} done={done}>
         {cardOpen ? (
           cardFlip ? (
             <>
               <p>{resposta}</p>
               <Action>
-                <Error>Não lembrei</Error>
-                <Almost>Quase não lembrei</Almost>
-                <Zap>Zap!</Zap>
+                <Error
+                  onClick={() => {
+                    setDone("#FF3030");
+                    setCardOpen(false);
+                    setIcon(error);
+                    setCounter((counter) => counter + 1);
+                  }}
+                >
+                  Não lembrei
+                </Error>
+                <Almost
+                  onClick={() => {
+                    setDone("#FF922E");
+                    setCardOpen(false);
+                    setIcon(almost);
+                    setCounter((counter) => counter + 1);
+                  }}
+                >
+                  Quase não lembrei
+                </Almost>
+                <Zap
+                  onClick={() => {
+                    setDone("#2FBE34");
+                    setCardOpen(false);
+                    setIcon(zap);
+                    setCounter((counter) => counter + 1);
+                  }}
+                >
+                  Zap!
+                </Zap>
               </Action>
             </>
           ) : (
@@ -32,7 +65,11 @@ export default function FlashCard({ number, pergunta, resposta }) {
         ) : (
           <>
             <CardNumber>Pergunta {number}</CardNumber>
-            <img src={play} alt="play" onClick={() => setCardOpen(true)} />
+            <img
+              src={icon}
+              alt="play"
+              onClick={() => setCardOpen(icon === play ? true : false)}
+            />
           </>
         )}
       </Card>
@@ -41,8 +78,8 @@ export default function FlashCard({ number, pergunta, resposta }) {
 }
 
 const Card = styled.div`
-  width: 320px;
-  min-height: ${(props) => (props.open ? "140px" : "35px")};
+  width: 300px;
+  min-height: ${(props) => (props.open ? "fit-content" : "35px")};
   background-color: ${(props) => (props.open ? "#FFFFD5" : "#ffffff")};
   margin: 12px;
   padding: 15px;
@@ -57,7 +94,7 @@ const Card = styled.div`
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
-  color: #333333;
+  color: ${(props) => (props.done === "" ? "#333333" : props.done)};
   position: relative;
 `;
 
@@ -99,11 +136,11 @@ const Buttom = styled.button`
 `;
 
 const Error = styled(Buttom)`
-  background-color: #FF3030;
+  background-color: #ff3030;
 `;
 const Almost = styled(Buttom)`
-  background-color: #FF922E;
+  background-color: #ff922e;
 `;
 const Zap = styled(Buttom)`
-  background-color: #2FBE34;
+  background-color: #2fbe34;
 `;

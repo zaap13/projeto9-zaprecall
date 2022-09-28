@@ -14,7 +14,7 @@ export default function App() {
       <GlobalStyle />
       <Container>
         {start ? (
-          <Main deck={decks[deck][1]} />
+          <Main deck={decks[deck][1]} total={decks[deck][1].length}/>
         ) : (
           <HomePage>
             <img src={logo} alt="Logo" />
@@ -31,7 +31,7 @@ export default function App() {
                 </option>
               ))}
             </select>
-            <button onClick={() => setStart(true)}>START</button>
+            <button disabled={deck === "" ? true : false} onClick={() => setStart(true)}>START</button>
           </HomePage>
         )}
       </Container>
