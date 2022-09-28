@@ -41,8 +41,8 @@ export default function FlashCard({ number, pergunta, resposta }) {
 }
 
 const Card = styled.div`
-  width: 300px;
-  min-height: ${(props) => (props.open ? "100px" : "35px")};
+  width: 320px;
+  min-height: ${(props) => (props.open ? "140px" : "35px")};
   background-color: ${(props) => (props.open ? "#FFFFD5" : "#ffffff")};
   margin: 12px;
   padding: 15px;

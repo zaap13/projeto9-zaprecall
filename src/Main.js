@@ -4,16 +4,20 @@ import Header from "./Header";
 
 import FlashCard from "./FlashCard";
 
-export default function Main() {
+export default function Main({ deck }) {
+  console.log(deck);
   return (
     <>
       <Header />
       <Deck>
-        <FlashCard
-          number="oitenta"
-          pergunta="perguntinha"
-          resposta="respostinha"
-        />
+        {deck.map((q, i) => (
+          <FlashCard
+          key={i}
+            number={i+1}
+            pergunta={q[0]}
+            resposta={q[1]}
+          />
+        ))}
       </Deck>
       <Footer />
     </>
