@@ -1,8 +1,21 @@
 import styled from "styled-components";
 
-export default function Footer({ counter, total }) {
-  return <Foot>{counter}/{total} CONCLUÍDOS</Foot>;
+export default function Footer({ counter, total, queue }) {
+  return (
+    <Foot>
+      {counter}/{total} CONCLUÍDOS
+      <Queue>
+        {queue.map((i) => (
+          <img src={i} alt="icon" />
+        ))}
+      </Queue>
+    </Foot>
+  );
 }
+const Queue = styled.div`
+  display: flex;
+  gap: 5px;
+`;
 
 const Foot = styled.footer`
   width: 100%;

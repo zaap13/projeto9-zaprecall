@@ -8,30 +8,37 @@ import logo from "./img/logo.png";
 export default function App() {
   const [start, setStart] = useState(false);
   const [deck, setDeck] = useState("");
+  const [meta, setMeta] = useState("");
 
   return (
     <>
       <GlobalStyle />
       <Container>
         {start ? (
-          <Main deck={decks[deck][1]} total={decks[deck][1].length}/>
+          <Main deck={decks[deck][1]} total={decks[deck][1].length} meta={meta} />
         ) : (
           <HomePage>
             <img src={logo} alt="Logo" />
 
-            <select
+            <Select
               name="Deck"
               value={deck}
               onChange={(e) => setDeck(e.target.value)}
             >
-              <option value="">Escolha o deck</option>
+              <option value="">Escolha seu deck</option>
               {decks.map((i, index) => (
                 <option key={index} value={index}>
                   {i[0]}
                 </option>
               ))}
-            </select>
-            <button disabled={deck === "" ? true : false} onClick={() => setStart(true)}>START</button>
+            </Select>
+            <Meta value={meta} onChange={e => setMeta(e.target.value)} placeholder="Digite sua meta de zaps..." />
+            <Start
+              disabled={(deck !== "" && meta > 0 && meta <= decks[deck][1].length) ? false : true}
+              onClick={() => setStart(true)}
+            >
+              Iniciar Recall!
+            </Start>
           </HomePage>
         )}
       </Container>
@@ -39,15 +46,56 @@ export default function App() {
   );
 }
 
+const Meta = styled.input`
+  width: 246px;
+  height: 43px;
+
+  background: #ffffff;
+  border-radius: 5px;
+`;
+
+const Select = styled.select`
+  width: 246px;
+  height: 43px;
+
+  background: #ffffff;
+  border-radius: 5px;
+`;
+
 const HomePage = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 20px;
 
   img {
     width: 136px;
     margin: 40px 0 20px 0;
+  }
+`;
+
+const Start = styled.button`
+  width: 246px;
+  height: 54px;
+
+  background: #ffffff;
+  border: 1px solid #d70900;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+  border-radius: 5px;
+  font-family: "Recursive";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+
+  color: #d70900;
+
+  &:disabled {
+    background: #e8e8e8;
+    color: #c0c0c0;
+    border: none;
   }
 `;
 

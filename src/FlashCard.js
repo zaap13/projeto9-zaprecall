@@ -6,11 +6,24 @@ import zap from "./img/icone_certo.png";
 import almost from "./img/icone_quase.png";
 import error from "./img/icone_erro.png";
 
-export default function FlashCard({ number, pergunta, resposta, setCounter }) {
+export default function FlashCard({
+  number,
+  pergunta,
+  resposta,
+  setCounter,
+  setQueue,
+  queue,
+  setZaps,
+}) {
   const [cardOpen, setCardOpen] = useState(false);
   const [cardFlip, setCardFlip] = useState(false);
   const [done, setDone] = useState("");
   const [icon, setIcon] = useState(play);
+
+  function handleEnd() {
+    setCardOpen(false);
+    setCounter((counter) => counter + 1);
+  }
 
   return (
     <>
@@ -23,9 +36,9 @@ export default function FlashCard({ number, pergunta, resposta, setCounter }) {
                 <Error
                   onClick={() => {
                     setDone("#FF3030");
-                    setCardOpen(false);
                     setIcon(error);
-                    setCounter((counter) => counter + 1);
+                    setQueue([...queue, error]);
+                    handleEnd();
                   }}
                 >
                   Não lembrei
@@ -33,9 +46,9 @@ export default function FlashCard({ number, pergunta, resposta, setCounter }) {
                 <Almost
                   onClick={() => {
                     setDone("#FF922E");
-                    setCardOpen(false);
                     setIcon(almost);
-                    setCounter((counter) => counter + 1);
+                    setQueue([...queue, almost]);
+                    handleEnd();
                   }}
                 >
                   Quase não lembrei
@@ -43,9 +56,10 @@ export default function FlashCard({ number, pergunta, resposta, setCounter }) {
                 <Zap
                   onClick={() => {
                     setDone("#2FBE34");
-                    setCardOpen(false);
                     setIcon(zap);
-                    setCounter((counter) => counter + 1);
+                    setQueue([...queue, zap]);
+                    setZaps((zaps) => zaps + 1);
+                    handleEnd();
                   }}
                 >
                   Zap!
