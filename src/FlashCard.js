@@ -31,9 +31,10 @@ export default function FlashCard({
         {cardOpen ? (
           cardFlip ? (
             <>
-              <p>{resposta}</p>
+              <p data-identifier="flashcard-answer">{resposta}</p>
               <Action>
                 <Error
+                  data-identifier="forgot-btn"
                   onClick={() => {
                     setDone("#FF3030");
                     setIcon(error);
@@ -44,6 +45,7 @@ export default function FlashCard({
                   Não lembrei
                 </Error>
                 <Almost
+                  data-identifier="almost-forgot-btn"
                   onClick={() => {
                     setDone("#FF922E");
                     setIcon(almost);
@@ -54,6 +56,7 @@ export default function FlashCard({
                   Quase não lembrei
                 </Almost>
                 <Zap
+                  data-identifier="zap-btn"
                   onClick={() => {
                     setDone("#2FBE34");
                     setIcon(zap);
@@ -68,11 +71,12 @@ export default function FlashCard({
             </>
           ) : (
             <>
-              <p>{pergunta}</p>
+              <p data-identifier="flashcard-question">{pergunta}</p>
               <Flipper
                 src={setinha}
                 alt="setinha"
                 onClick={() => setCardFlip(true)}
+                data-identifier="flashcard-turn-btn"
               />
             </>
           )
@@ -83,6 +87,7 @@ export default function FlashCard({
               src={icon}
               alt="play"
               onClick={() => setCardOpen(icon === play ? true : false)}
+              data-identifier="flashcard-show-btn"
             />
           </>
         )}

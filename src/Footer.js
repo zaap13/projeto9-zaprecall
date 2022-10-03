@@ -2,11 +2,16 @@ import styled from "styled-components";
 
 export default function Footer({ counter, total, queue }) {
   return (
-    <Foot>
+    <Foot data-identifier="flashcard-counter">
       {counter}/{total} CONCLUÍDOS
       <Queue>
-        {queue.map((i) => (
-          <img src={i} alt="icon" />
+        {queue.map((i, index) => (
+          <img
+            src={i}
+            alt="icon"
+            key={index}
+            data-identifier="flashcard-status"
+          />
         ))}
       </Queue>
     </Foot>

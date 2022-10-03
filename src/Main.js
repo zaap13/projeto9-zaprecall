@@ -42,6 +42,7 @@ export default function Main({ deck, total, meta }) {
             meta={meta}
             setZaps={setZaps}
             zaps={zaps}
+            data-identifier="flashcard"
           />
         ))}
       </Deck>

@@ -15,26 +15,41 @@ export default function App() {
       <GlobalStyle />
       <Container>
         {start ? (
-          <Main deck={decks[deck][1]} total={decks[deck][1].length} meta={meta} />
+          <Main
+            deck={decks[deck][1]}
+            total={decks[deck][1].length}
+            meta={meta}
+          />
         ) : (
           <HomePage>
             <img src={logo} alt="Logo" />
 
             <Select
+              data-identifier="deck-selector"
               name="Deck"
               value={deck}
               onChange={(e) => setDeck(e.target.value)}
             >
               <option value="">Escolha seu deck</option>
               {decks.map((i, index) => (
-                <option key={index} value={index}>
+                <option key={index} value={index} identifier="deck-option">
                   {i[0]}
                 </option>
               ))}
             </Select>
-            <Meta value={meta} onChange={e => setMeta(e.target.value)} placeholder="Digite sua meta de zaps..." />
+            <Meta
+              data-identifier="goals-input"
+              value={meta}
+              onChange={(e) => setMeta(e.target.value)}
+              placeholder="Digite sua meta de zaps..."
+            />
             <Start
-              disabled={(deck !== "" && meta > 0 && meta <= decks[deck][1].length) ? false : true}
+              data-identifier="start-btn"
+              disabled={
+                deck !== "" && meta > 0 && meta <= decks[deck][1].length
+                  ? false
+                  : true
+              }
               onClick={() => setStart(true)}
             >
               Iniciar Recall!
